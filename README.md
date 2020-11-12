@@ -2,6 +2,8 @@
 Matlab code to transfer history dependent variables between meshes
 
 Need to also install MESH2D --  a matlab repository by  Darren Engwirda needed to generate sample meshes in 2D. 
+Mesh2D is called in initmesh();
+
 https://au.mathworks.com/matlabcentral/fileexchange/25555-mesh2d-delaunay-based-unstructured-mesh-generation
 https://github.com/dengwirda/mesh2d
 
