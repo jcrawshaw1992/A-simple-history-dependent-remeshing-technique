@@ -1,4 +1,4 @@
-# HistoryDependentRemeshing
+# A simple history dependent remeshing technique
 
 The code in this git hub repository is an example of the  history dependent meshing technique introduced in "A simple history-dependent remeshing technique to increase finite element model stability in elastic surface deformations" Crawshaw et al. (currently in review). This paper can be found on the archive: https://arxiv.org/abs/2011.06756
 
