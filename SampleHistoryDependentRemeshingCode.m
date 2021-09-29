@@ -1,14 +1,17 @@
 function main
 
 clc; clear all; close all;
-Directory = "/Users/jcrawshaw/Documents/Projects/Writing/JobApplications/FrancisCrick_014707/CodeSnippets/HistoryDependentRemeshing/MatlabCode/";
+%------ Add the correct directory here for the remeshing functions (installed from this git hub repository) and the Mesh2D code (will also need to be installed)
+Directory = ....."/HistoryDependentRemeshing/MatlabCode/";
 addpath(Directory+'HistoryDependentRemeshingFunctions'); addpath(Directory+'MESH2D_MatlabCodeToGenerateMeshes');
 
+
+%------ Chose an initial mesh refinment 
 Refinment = 1;
 RemeshedRefinment= 1;
 MatFileName = "SampleOutput"; 
 
-% Initial mesh 
+%------ Create the initial mesh 
 initmsh();
 [InitalNodes, Edges_old,Elements_old,~] = SetupInitalGeometry(3,3, Refinment); % Course inital mesh refinment it 0.5 :) 
 
@@ -25,9 +28,13 @@ InitalNodes(:,3) = zeros(length(InitalNodes),1);
 %------ Now remesh the deformed mesh
 [NewNodes,~,Elements_New,~] = refine2(BoundaryNodes,BoundaryEdges,[],[],RemeshedRefinment) ;
 
-%
+
 % Needs to be in 3D because cross products are used everywhere 
 NewNodes(:,3) = zeros(length(NewNodes),1);
+
+%------ Map the new mesh back to the initial configuration 
+%------ If you are interested in digging into the code and adapting it/tranfering it to a different language 
+%------ then this is the place to start. 
 [NewNodes_0] = MappingAdaptedMeshToInitialGeometry(InitalNodes,DeformedNodes, Elements_old,NewNodes);
 
 
@@ -138,24 +145,6 @@ end
 
 function y = rmsE(x)
 y = sqrt(sum( (x-mean(x)).*(x-mean(x)))/ length(x));
-end
-
-
-
-
-function  AddAllPaths
-addpath("/Users/jcrawshaw/Documents/Projects/MeshMatlab/HistoryDependentRemeshingFunctions");
-addpath("/Users/jcrawshaw/Documents/Projects/MeshMatlab/MeshingTools")
-addpath("/Users/jcrawshaw/Documents/Projects/MeshMatlab/MeshingTools/stlTools")
-addpath("/Users/jcrawshaw/Documents/Projects/MeshMatlab/MeshingTools/MESH2D_MatlabCodeToGenerateMeshes")
-addpath("/Users/jcrawshaw/Documents/Projects/MeshMatlab/")
-
-% SkalakStrainCourse = SkalakStrainEnergyDenistyAcrossDomain(Elements_old,InitalNodes, DeformedNodes);
-
-    
-    %------ Get the skalak strain for the new mesh
-%     [SkalakStrain_New{k}] = SkalakStrainEnergyDenistyAcrossDomain(Elements_New{k}, NewNodes_0{k}, NewNodes{k});
-
 end
 
 
